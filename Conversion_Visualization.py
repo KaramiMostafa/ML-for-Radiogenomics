@@ -5,14 +5,6 @@ import pandas as pd
 import nibabel as nib
 
 
-#%% Function to display row of image slices: 3 view of axial , sagittal  , coronal 
-def show_slices(slices):
-   fig, axes = plt.subplots(1, len(slices))
-   fig.set_figheight(15)
-   fig.set_figwidth(40)
-   for i, slice in enumerate(slices):
-       axes[i].imshow(slice.T, cmap="gray", origin="lower", aspect='auto')
-
 #%% Getting the train data labels
 train_df = pd.read_csv("D:/ICT/Thesis/Data/rsna-miccai-brain-tumor-radiogenomic-classification/train_labels.csv")
 print(train_df)
@@ -40,12 +32,16 @@ try:
       
     if tp == 1:
         img = nib.load(os.path.join(train_path_nifti, patientID +'/'+ SQtypes[0] +'/' + patientID + '.nii'))
+        type2print = SQtypes[0]
     elif tp == 2:
         img = nib.load(os.path.join(train_path_nifti, patientID +'/'+ SQtypes[1] +'/' + patientID + '.nii'))
+        type2print = SQtypes[1]
     elif tp == 3:
         img = nib.load(os.path.join(train_path_nifti, patientID +'/'+ SQtypes[2] +'/' + patientID + '.nii'))
+        type2print = SQtypes[2]
     elif tp == 4:
         img = nib.load(os.path.join(train_path_nifti, patientID +'/'+ SQtypes[3] +'/' + patientID + '.nii'))
+        type2print = SQtypes[3]
     else:
         pass
     
@@ -54,9 +50,19 @@ try:
     slice_0 = img_data[img.shape[0]//2, :, :]
     slice_1 = img_data[:, img.shape[1]//2, :]
     slice_2 = img_data[:, :, img.shape[2]//2]
-    show_slices([slice_0, slice_1, slice_2])
-    plt.suptitle(f"Axial, Sagittal and Coronal view of the patient's brain \n Patient ID : {patientID}    MGMT_value : {train_df.loc[int(patientID)]['MGMT_value']} ", fontsize=38, fontweight="bold")
+
+    
+    # plotting 3 views
+    fig, axes = plt.subplots(1, 3)
+    fig.set_figheight(17)
+    fig.set_figwidth(40)
+    axes[0].imshow(slice_0.T, cmap="gray", origin="lower", aspect='auto')
+    axes[0].set_title('Sagittal', fontsize=30, fontweight="bold")
+    axes[1].imshow(slice_1.T, cmap="gray", origin="lower", aspect='auto')
+    axes[1].set_title('Coronal', fontsize=30, fontweight="bold")
+    axes[2].imshow(slice_2.T, cmap="gray", origin="lower", aspect='auto')
+    axes[2].set_title('Axial', fontsize=30, fontweight="bold")
+    plt.suptitle(f"Axial, Sagittal and Coronal view of the patient's brain \n Patient ID : {patientID}    MGMT_value : {train_df.loc[int(patientID)]['MGMT_value']}    Type: {type2print} ", fontsize=38, fontweight="bold")
     
 except:
     print("Incorrecet sequence type.")
-
