@@ -10,36 +10,3 @@
 #### T1-weighted pre-contrast (T1w)
 #### T1-weighted post-contrast (T1Gd)
 #### T2-weighted (T2)
-#### Exact folder structure:
-
-####Training/Validation/Testing
-####│
-####└─── 00000
-####│   │
-####│   └─── FLAIR
-####│   │   │ Image-1.dcm
-####│   │   │ Image-2.dcm
-####│   │   │ ...
-####│   │   
-####│   └─── T1w
-####│   │   │ Image-1.dcm
-####│   │   │ Image-2.dcm
-####│   │   │ ...
-####│   │   
-####│   └─── T1wCE
-####│   │   │ Image-1.dcm
-####│   │   │ Image-2.dcm
-####│   │   │ ...
-####│   │   
-####│   └─── T2w
-####│   │   │ Image-1.dcm
-####│   │   │ Image-2.dcm
-####│   │   │ .....
-####│   
-####└─── 00001
-####│   │ ...
-####│   
-####│ ...   
-####│   
-####└─── 00002
-####│   │ ...
