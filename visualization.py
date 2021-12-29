@@ -25,8 +25,6 @@ SQtypes = ["FLAIR", "T1w", "T1wCE", "T2w"]  # Sequence tpyes
 
 
 #%% Which type of sequence to visualize + save it in different folder
-
-
 for patient in patientID:
     for types in SQtypes:
         img = nib.load(
@@ -36,6 +34,7 @@ for patient in patientID:
         )
         img_data = img.get_fdata()
 
+        # extracting different slice of the brain for three dircetion views
         slice_0 = img_data[img.shape[0] // 2, :, :]
         slice_1 = img_data[:, img.shape[1] // 2, :]
         slice_2 = img_data[:, :, img.shape[2] // 2]
@@ -56,7 +55,7 @@ for patient in patientID:
             fontweight="bold",
         )
         os.makedirs(visualization_path + patient + "/" + types + "/", exist_ok=True)
-        fig.savefig(
+        fig.savefig( # saving the jpg format with info.
             visualization_path + patient + "/" + types + "/" + patient + types + ".jpg",
             dpi=300,
         )
