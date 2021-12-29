@@ -42,11 +42,14 @@ SQtypes = ["FLAIR", "T1w", "T1wCE", "T2w"]  # Sequence tpyes
 
 #%% Conversion from DICOM to NIFTI
 for patient in patientID:
-    for types in SQtypes:
-        os.makedirs(train_path_nifti + patient + "/" + types + "/", exist_ok=True)
-        dicom2nifti.dicom_series_to_nifti(
-            train_path + patient + "/" + types,
-            os.path.join(
-                train_path_nifti, patient + "/" + types + "/" + patient + types
-            ),
-        )
+    try:
+        for types in SQtypes:
+            os.makedirs(train_path_nifti + patient + "/" + types + "/", exist_ok=True)
+            dicom2nifti.dicom_series_to_nifti(
+                train_path + patient + "/" + types,
+                os.path.join(
+                    train_path_nifti, patient + "/" + types + "/" + patient + types
+                ),
+            )
+    except:
+        continue
