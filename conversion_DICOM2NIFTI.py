@@ -22,7 +22,7 @@ error :
     ConversionValidationError: SLICE_INCREMENT_INCONSISTENT
 """
 
-#%% Getting the train data labels
+#%% Getting the train data labels: MGMT values for each patients
 train_df = pd.read_csv(
     "D:/ICT/Thesis/Data/rsna-miccai-brain-tumor-radiogenomic-classification/train_labels.csv"
 )
@@ -30,6 +30,11 @@ print(train_df)
 
 
 #%% path of DICOM files and output path for NIFTI
+""" patieentID: list of BraTS21ID in train data (DICOM formtat) path for first iteration
+    train_path: input images with DICOM format 
+    train_path_nifti: NIFTI images as a output path
+    SQtypes: list of sequence type for inner iteration (second iteration)
+"""
 patientID = os.listdir(
     "D:/ICT/Thesis/Data/rsna-miccai-brain-tumor-radiogenomic-classification/train/"
 )
