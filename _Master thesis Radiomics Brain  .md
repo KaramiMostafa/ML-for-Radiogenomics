@@ -83,7 +83,7 @@ https://github.com/datascienceukk/HD-GLIO-AUTO (can be tried on googlecollab)
 
 - [ ] LC letter of support Mostafa Karami
 - [ ] visualization of the tumour segmentation:
-    - [ ] find best tumour slice to visualize
+    - [ ] find best tumour slice to visualize for each view (sag, trans, cor)
     - [ ] compare jpegs to Task 2
     - [ ] find out more about the tissues segmented: core, edema, etc...
 - [ ] Getting info about all images (voxel size, image size)
