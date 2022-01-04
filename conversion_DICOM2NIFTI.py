@@ -5,6 +5,7 @@ import pandas as pd
 
 """ Some of the data could not be converted to NIFTI format: (should be excluded till debugging)
 Patient ID | Sequence Type
+
   00107          T2w
   00108          T2w
   00120          T2w
@@ -46,6 +47,9 @@ SQtypes = ["FLAIR", "T1w", "T1wCE", "T2w"]  # Sequence tpyes
 
 
 #%% Conversion from DICOM to NIFTI
+""" using try/except technique is usefull since in some cases
+over sequence type iteration, there will be an error form mentioned patients
+"""
 for patient in patientID:
     try:
         for types in SQtypes:
