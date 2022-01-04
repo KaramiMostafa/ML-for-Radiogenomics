@@ -10,3 +10,5 @@ Fluid Attenuated Inversion Recovery (FLAIR)
 T1-weighted pre-contrast (T1w)   
 T1-weighted post-contrast (T1Gd)   
 T2-weighted (T2) 
+
+### Methods 
