@@ -16,7 +16,7 @@ print(train_df)
 
 
 #%% path of NIFTI files and output path for jpg images
-""" patieentID: list of BraTS21ID in train data path for first iteration
+""" patieentID: list of BraTS21ID in train data path (NIFTI formtat) for first iteration
     visualization_path: output for jpg images
     train_path_nifti: NIFTI images as a input path
     SQtypes: list of sequence type for inner iteration
