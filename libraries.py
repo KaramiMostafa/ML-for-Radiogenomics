@@ -7,7 +7,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import nibabel as nib
 
-
+""" train_df : patients lables 
+    patientID : list of patiend's ID in input folder
+    train_path : DICOM format path
+    train_path_nifti : NIFTI format path --> output for conversion function
+    visualization_path : JPG format path --> output for visualization function
+    sqtypes : sequence type of mMRI pictures
+"""
 class PreProcess:
     def __init__(
         self,
@@ -31,7 +37,10 @@ class PreProcess:
         # self.visualization_path = "D:/ICT/Thesis/Data/rsna-miccai-brain-tumor-radiogenomic-classification/visualization_images/"
         # self.train_path_nifti = "D:/ICT/Thesis/Data/rsna-miccai-brain-tumor-radiogenomic-classification/train_nifti/"
         self.sqtypes = ["FLAIR", "T1w", "T1wCE", "T2w"]
-
+        
+    """iterating over patient's ID and the sequence type (inner iteration)
+    to convert each picture into NIFTI format and save it in "converted_path"
+    """
     def conversion(self, original_path, converted_path):
 
         for patient in self.patientID:
@@ -50,6 +59,10 @@ class PreProcess:
             except:
                 continue
 
+    """iterating over patient's ID and the sequence type (inner iteration)
+    to convert each picture into JPG format and save it in "jpg_path" for visualization
+    containing : MGMT_value status for each one
+    """
     def visualization(self, nifti_path, jpg_path):
 
         for patient in self.patientID:
