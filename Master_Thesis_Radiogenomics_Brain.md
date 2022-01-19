@@ -81,14 +81,36 @@ https://github.com/datascienceukk/HD-GLIO-AUTO (can be tried on googlecollab)
 
 --- 3 week goal ---
 
-- [ ] LC letter of support Mostafa Karami
 - [ ] visualization of the tumour segmentation:
-    - [ ] find best tumour slice to visualize for each view (sag, trans, cor)
-    - [ ] compare jpegs to Task 2
-    - [ ] find out more about the tissues segmented: core, edema, etc...
-- [ ] Getting info about all images (voxel size, image size)
+    - [ ] find best tumour slice to visualize for each view (sag, trans, cor) 
+    - [x] compare jpegs to Task 2
+    - [x] find out more about the tissues segmented: core, edema, etc...
+- [X] Getting info about all images (voxel size, image size)
 
 --- 4 week goal ---
+
+- [ ] Getting info about all images for Task1 (voxel size, image size)
+- [ ] visualization of the tumour segmentation:
+    - [ ] find best tumour slice to visualize for each view (sag, trans, cor) for tumour core:
+        *  create image with just core
+        *  sum over one direction to create a vector
+        *  do the sum for all 3 different directions
+        *  get position of the max in each direction
+        *  use those position values for visualization 
+- [ ] Resample all images of Task 2 to common grid 1x1x1 mm3:
+    - [ ]  Upload the resample python script (Liliana) 
+    - [ ]  Compare images from task 1 and task 2 with resampled version
+- [ ] More info about regions here:
+    https://www.med.upenn.edu/cbica/brats2021/
+    - [ ] create segmentation WholeTumour (1+2+4)
+    - [ ] create segmentation tumour core (1+2)
+
+
+---- 5 week goal --- 
+
+- [ ] LC letter of support Mostafa Karami
+
+
 https://pyradiomics.readthedocs.io/en/latest/
 To extract features from images (Nifti)
 
