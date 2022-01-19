@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import os
-import pandas as pd
 import nibabel as nib
 import numpy as np
 
@@ -14,48 +13,28 @@ import numpy as np
     return --> best_postions as a list containg the best postion view for visualization
 """
 
-
 def best_view(img):
-
+    
     img_data = img.get_fdata()
+    count_sag, count_axi, count_cor = [],[],[]
+    
+    for i in range(0,img.shape[0]):
+        count_sag.append(np.count_nonzero(img_data[i, : , :]))
+        
+    for j in range(0,img.shape[1]):
+        count_cor.append(np.count_nonzero(img_data[:, j , :]))
 
-    max_count = 0
-    for i in range(0, img.shape[0]):
-
-        img_slice = img_data[i, :, :]
-        count = np.count_nonzero(img_slice)
-        if count > max_count:
-            max_count = count
-            position_sag = i
-
-    max_count = 0
-    for i in range(0, img.shape[1]):
-
-        img_slice = img_data[:, i, :]
-        count = np.count_nonzero(img_slice)
-        if count > max_count:
-            max_count = count
-            position_cor = i
-
-    max_count = 0
-    for i in range(0, img.shape[2]):
-
-        img_slice = img_data[:, :, i]
-        count = np.count_nonzero(img_slice)
-        if count > max_count:
-            max_count = count
-            position_axi = i
-
-    best_postions = [position_sag, position_cor, position_axi]
-
-    return best_postions
+    for k in range(0,img.shape[2]):
+        count_axi.append(np.count_nonzero(img_data[:, : , k]))
+    
+    position_cor = np.argmax(count_cor) 
+    position_sag = np.argmax(count_sag)
+    position_axi = np.argmax(count_axi)
+        
+    return [position_sag, position_cor, position_axi]
 
 
-#%% getting the train data labels and patients ID
-train_df = pd.read_csv(
-    "D:/ICT/Thesis/Data/rsna-miccai-brain-tumor-radiogenomic-classification/train_labels.csv"
-)
-
+#%% getting the patients ID
 patientID = os.listdir(
     "D:/ICT/Thesis/Data/Task1/RSNA_ASNR_MICCAI_BraTS2021_TrainingData_16July2021/"
 )
@@ -68,8 +47,7 @@ best_view_path = "D:/ICT/Thesis/Result/best_view/"
 
 
 #%% iterating through the task 1 dataset with different sequence type to save the image
-# and compare to the segmented image with best tumor view
-
+#   and compare to the segmented image with best tumor view
 sqtypes_task1 = ["flair", "t1", "t1ce", "t2"]
 
 for patient in patientID:  # list of patients for Task 1 dataset
