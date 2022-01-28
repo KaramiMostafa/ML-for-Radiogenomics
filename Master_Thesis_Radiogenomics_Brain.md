@@ -109,6 +109,7 @@ https://github.com/datascienceukk/HD-GLIO-AUTO (can be tried on googlecollab)
 
 - [ ] https://pyradiomics.readthedocs.io/en/latest/
     - [ ]  extract features from 2/3 images (Nifti)
+    - [ ]  extend original image type to LoG and Wavelet
 
 
 ---- 6 week goal --- 
