@@ -1,20 +1,22 @@
 """
-libraries
+libraries : data pre-processing
 """
 import os
 import dicom2nifti
 import pandas as pd
 import matplotlib.pyplot as plt
 import nibabel as nib
+import numpy as np
 
 """ train_df : patients lables 
     patientID : list of patiend's ID in input folder
     train_path : DICOM format path
     train_path_nifti : NIFTI format path --> output for conversion function
     visualization_path : JPG format path --> output for visualization function
-    sqtypes : sequence type of mMRI pictures
+    sequence_types : sequence type of mMRI pictures as a list of string
 """
 class PreProcess:
+    
     def __init__(
         self,
         train_df,
@@ -22,7 +24,7 @@ class PreProcess:
         train_path,
         train_path_nifti,
         visualization_path,
-        sqtypes,
+        sequence_types,
     ):
 
         self.train_df = pd.read_csv(
@@ -36,7 +38,7 @@ class PreProcess:
         # )
         # self.visualization_path = "D:/ICT/Thesis/Data/rsna-miccai-brain-tumor-radiogenomic-classification/visualization_images/"
         # self.train_path_nifti = "D:/ICT/Thesis/Data/rsna-miccai-brain-tumor-radiogenomic-classification/train_nifti/"
-        self.sqtypes = ["FLAIR", "T1w", "T1wCE", "T2w"]
+        self.sequence_types = ["FLAIR", "T1w", "T1wCE", "T2w"]
         
     """iterating over patient's ID and the sequence type (inner iteration)
     to convert each picture into NIFTI format and save it in "converted_path"
@@ -45,7 +47,7 @@ class PreProcess:
 
         for patient in self.patientID:
             try:
-                for types in self.sqtypes:
+                for types in self.sequence_types:
                     os.makedirs(
                         converted_path + patient + "/" + types + "/", exist_ok=True
                     )
@@ -67,7 +69,7 @@ class PreProcess:
 
         for patient in self.patientID:
             try:
-                for types in self.sqtypes:
+                for types in self.sequence_types:
                     img = nib.load(
                         os.path.join(
                             nifti_path,
@@ -116,3 +118,32 @@ class PreProcess:
                     )
             except:
                 continue
+    
+    """ This function finds the best postion view in each direction of sagittal,
+    coronal and axial. It is done by counting all the non-zero cell and storing the 
+    maximum value for each direction.
+    
+    Args:
+    img : NIFTI image as an input
+    
+    return --> best_postions as a list containg the best postion view for visualization
+"""
+    def best_view(img):
+        
+        img_data = img.get_fdata()
+        count_sag, count_axi, count_cor = [],[],[]
+        
+        for i in range(0,img.shape[0]):
+            count_sag.append(np.count_nonzero(img_data[i, : , :]))
+            
+        for j in range(0,img.shape[1]):
+            count_cor.append(np.count_nonzero(img_data[:, j , :]))
+    
+        for k in range(0,img.shape[2]):
+            count_axi.append(np.count_nonzero(img_data[:, : , k]))
+        
+        position_cor = np.argmax(count_cor) 
+        position_sag = np.argmax(count_sag)
+        position_axi = np.argmax(count_axi)
+            
+        return [position_sag, position_cor, position_axi]
