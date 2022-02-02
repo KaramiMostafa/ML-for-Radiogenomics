@@ -25,10 +25,12 @@ from radiomics import featureextractor
 import glob
 
 def main():
-  os.chdir('U:\\Lung_missing') 
-
-  outPath = 'U:\\Lung_missing'
-  filescsv=glob.glob('Radiomics_LungTest_2.csv')
+  # os.chdir('U:\\Lung_missing') 
+  os.chdir(r'D:\ICT\Thesis\Github\repo\Pyradiomics') 
+  
+  # outPath = 'U:\\Lung_missing'
+  outPath = r'D:\ICT\Thesis\Github\repo\Pyradiomics'
+  filescsv=glob.glob('radiomics_features_task1.csv')
 
   #filescsv=glob.glob('Radiomics_*.csv')
   for inFile in filescsv[:]:
