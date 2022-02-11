@@ -119,7 +119,8 @@ class PreProcess:
             except:
                 continue
     
-    """ This function finds the best postion view in each direction of sagittal,
+    """
+    This function finds the best postion view in each direction of sagittal,
     coronal and axial. It is done by counting all the non-zero cell and storing the 
     maximum value for each direction.
     
@@ -127,8 +128,8 @@ class PreProcess:
     img : NIFTI image as an input
     
     return --> best_postions as a list containg the best postion view for visualization
-"""
-    def best_view(img):
+    """
+    def best_view(self,img):
         
         img_data = img.get_fdata()
         count_sag, count_axi, count_cor = [],[],[]
@@ -147,3 +148,60 @@ class PreProcess:
         position_axi = np.argmax(count_axi)
             
         return [position_sag, position_cor, position_axi]
+    
+    
+    ''' <<image_info>> function extracts the volume and size of images + single 
+        vocxel in each one and store it in a csv file.
+    '''
+    def image_info(self):
+        
+        df = pd.DataFrame(
+            columns=["image", "voxel volume", "voxel size", "image volume", "image size"]
+        )
+
+        for patient in self.patientID:
+            try:
+                for types in self.sqtypes_task2:
+                    # img = nib.load(
+                    #     train_path_nifti
+                    #     + patient
+                    #     + "/"
+                    #     + patient
+                    #     + '_'
+                    #     + types
+                    #     + ".nii.gz"
+                    # )
+                    img = nib.load(
+                       os.path.join(
+                           self.train_path_nifti,
+                           patient + "/" + types + "/" + patient + types
+                           + ".nii",
+                       )
+                    )
+                    
+                    voxel_size = list(img.header.get_zooms())
+                    voxel_volume = np.prod(img.header["pixdim"][1:4])
+        
+                    image_shape = list(img.shape)
+                    voxel_count = np.count_nonzero(img.get_data())
+                    image_volume = voxel_volume * voxel_count
+                    image_size = (
+                        image_shape[0] * voxel_size[0],
+                        image_shape[1] * voxel_size[1],
+                        image_shape[2] * voxel_size[2],
+                    )
+        
+                    df = df.append(
+                        {
+                            "image": patient + types,
+                            "voxel volume": voxel_volume,
+                            "voxel size": voxel_size,
+                            "image volume": image_volume,
+                            "image size": image_size,
+                        },
+                        ignore_index=True,
+                    )
+            except:
+                continue
+
+        df.to_csv("imageInfo_resampled_task2_data.csv", index=False)
