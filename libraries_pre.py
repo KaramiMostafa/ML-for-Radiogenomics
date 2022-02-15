@@ -40,7 +40,7 @@ class PreProcess:
         # self.train_path_nifti = "D:/ICT/Thesis/Data/rsna-miccai-brain-tumor-radiogenomic-classification/train_nifti/"
         self.sequence_types = ["FLAIR", "T1w", "T1wCE", "T2w"]
         
-    """iterating over patient's ID and the sequence type (inner iteration)
+    """<<conversion>> is iterating over patient's ID and the sequence type (inner iteration)
     to convert each picture into NIFTI format and save it in "converted_path"
     """
     def conversion(self, original_path, converted_path):
@@ -61,7 +61,7 @@ class PreProcess:
             except:
                 continue
 
-    """iterating over patient's ID and the sequence type (inner iteration)
+    """<<visualization>> is iterating over patient's ID and the sequence type (inner iteration)
     to convert each picture into JPG format and save it in "jpg_path" for visualization
     containing : MGMT_value status for each one
     """
@@ -120,7 +120,7 @@ class PreProcess:
                 continue
     
     """
-    This function finds the best postion view in each direction of sagittal,
+    <<best_view>> finds the best postion view in each direction of sagittal,
     coronal and axial. It is done by counting all the non-zero cell and storing the 
     maximum value for each direction.
     
