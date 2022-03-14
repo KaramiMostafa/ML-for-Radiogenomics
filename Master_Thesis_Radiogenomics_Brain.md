@@ -135,6 +135,8 @@ https://github.com/datascienceukk/HD-GLIO-AUTO (can be tried on googlecollab)
     - [ ] Random Forests  
     - [ ] Logistic regression
 
+- [ ] Update project documentation and folders
+
 
 Deliver thesis: Beginning of September - middle of July freeze code 
 
