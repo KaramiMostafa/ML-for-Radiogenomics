@@ -97,24 +97,49 @@ https://github.com/datascienceukk/HD-GLIO-AUTO (can be tried on googlecollab)
         *  do the sum for all 3 different directions
         *  get position of the max in each direction
         *  use those position values for visualization 
-- [ ] Resample all images of Task 2 to common grid 1x1x1 mm3:
-    - [X]  Upload the resample python script (Liliana) 
-    - [ ]  Compare images from task 1 and task 2 with resampled version
-- [ ] More info about regions here:
+- [x] More info about regions here:
     https://www.med.upenn.edu/cbica/brats2021/
     - [X] create segmentation WholeTumour (1+2+4)
-    - [ ] create segmentation tumour core (1+4)
+    - [X] create segmentation tumour core (1+4)
    
 ---- 5 week goal --- 
 
-- [ ] https://pyradiomics.readthedocs.io/en/latest/
-    - [ ]  extract features from 2/3 images (Nifti)
-    - [ ]  extend original image type to LoG and Wavelet
+- [X] https://pyradiomics.readthedocs.io/en/latest/
+    - [X]  extract features from 2/3 images (Nifti)
+    - [x]  extend original image type to LoG and Wavelet 
+
+- [X] LC letter of support Mostafa Karami
+
+---- 9 week goal --- 
+
+- [ ] Resample all images of Task 2 to common grid 1x1x1 mm3:
+    - [X]  Upload the resample python script (Liliana) 
+    - [ ]  Compare images from task 1 and task 2 with resampled version
+
+- [ ] Split of data
+    - [X] Test/Training
+    - [ ] 5 fold CV
+
+- [ ] Kaagle testing
+
+- [ ] Feature Selection (to apply in 5 Fold CV)
+    - [X] low variance features elimination
+    - [ ] Correlation/Mutual Information/AUC/f-statistics (scikit-learn)
+    - [ ] Correlation between features (to eliminate highly correlated features)
+    - [ ] XGBoost (Feature importance)
+    - [ ] Logistic regression with LASSO (embebbed method)
+
+- [ ] Machine Learning
+    - [ ] SVM
+    - [ ] Neural networks
+    - [ ] Random Forests  
+    - [ ] Logistic regression
 
 
----- 6 week goal --- 
+Deliver thesis: Beginning of September - middle of July freeze code 
 
-- [ ] LC letter of support Mostafa Karami
+
+
 
 Preprocessing of features:
 
