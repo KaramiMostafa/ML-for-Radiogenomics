@@ -127,6 +127,9 @@ https://github.com/datascienceukk/HD-GLIO-AUTO (can be tried on googlecollab)
     - [ ] Correlation/Mutual Information/AUC/f-statistics (scikit-learn)
     - [ ] Correlation between features (to eliminate highly correlated features)
     - [ ] XGBoost (Feature importance)
+
+https://www.codespeedy.com/feature-importance-in-machine-learning-using-xg-boost/#:~:text=Feature%20Selection%20using%20XGBoost%20in%20Python%20Decision%20Tree-based,and%20accordingly%20take%20decisions%20while%20classifying%20the%20data.
+
     - [ ] Logistic regression with LASSO (embebbed method)
 
 - [ ] Machine Learning
