@@ -1,3 +1,4 @@
 *.csv filter=lfs diff=lfs merge=lfs -text
 Resample/** filter=lfs diff=lfs merge=lfs -text
 Pyradiomics/** filter=lfs diff=lfs merge=lfs -text
+results/** filter=lfs diff=lfs merge=lfs -text
