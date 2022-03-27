@@ -112,33 +112,43 @@ https://github.com/datascienceukk/HD-GLIO-AUTO (can be tried on googlecollab)
 
 ---- 9 week goal --- 
 
+- [X] Split of data
+    - [X] Test/Training
+    - [X] 5 fold CV
+
+
+- [X] Feature Selection (to apply in 5 Fold CV)
+    - [X] low variance features elimination
+    - [X] Correlation/Mutual Information/AUC/f-statistics (scikit-learn)
+    - [X] Correlation between features (to eliminate highly correlated features)
+    - [X] XGBoost (Feature importance)
+
+https://www.codespeedy.com/feature-importance-in-machine-learning-using-xg-boost/#:~:text=Feature%20Selection%20using%20XGBoost%20in%20Python%20Decision%20Tree-based,and%20accordingly%20take%20decisions%20while%20classifying%20the%20data.
+
+    - [X] Logistic regression with LASSO (embebbed method)
+
+- [X] Machine Learning
+    - [X] SVM
+    - [X] Neural networks
+    - [X] Random Forests  
+    - [X] Logistic regression
+
+- [X] Update project documentation and folders
+
+---- 10 week goal --- 
+
 - [ ] Resample all images of Task 2 to common grid 1x1x1 mm3:
     - [X]  Upload the resample python script (Liliana) 
     - [ ]  Compare images from task 1 and task 2 with resampled version
 
-- [ ] Split of data
-    - [X] Test/Training
-    - [ ] 5 fold CV
-
 - [ ] Kaagle testing
 
-- [ ] Feature Selection (to apply in 5 Fold CV)
-    - [X] low variance features elimination
-    - [ ] Correlation/Mutual Information/AUC/f-statistics (scikit-learn)
-    - [ ] Correlation between features (to eliminate highly correlated features)
-    - [ ] XGBoost (Feature importance)
+- [ ] Mixing dataset from different sequence types and segmented brain tumors to get a better result
 
-https://www.codespeedy.com/feature-importance-in-machine-learning-using-xg-boost/#:~:text=Feature%20Selection%20using%20XGBoost%20in%20Python%20Decision%20Tree-based,and%20accordingly%20take%20decisions%20while%20classifying%20the%20data.
+- [ ] Using performance metrics to evaluate machine learning performance:
+    - [ ] Confusion matrix
+    - [ ] Precision, recall, and F1 score
 
-    - [ ] Logistic regression with LASSO (embebbed method)
-
-- [ ] Machine Learning
-    - [ ] SVM
-    - [ ] Neural networks
-    - [ ] Random Forests  
-    - [ ] Logistic regression
-
-- [ ] Update project documentation and folders
 
 
 Deliver thesis: Beginning of September - middle of July freeze code 
