@@ -137,23 +137,33 @@ https://www.codespeedy.com/feature-importance-in-machine-learning-using-xg-boost
 
 ---- 10 week goal --- 
 
-- [ ] Resample all images of Task 2 to common grid 1x1x1 mm3:
-    - [X]  Upload the resample python script (Liliana) 
-    - [ ]  Compare images from task 1 and task 2 with resampled version
+- [X] Mixing dataset from different sequence types and segmented brain tumors to get a better result
 
-- [ ] Kaagle testing
+- [X] Using performance metrics to evaluate machine learning performance:
+    - [X] Confusion matrix
+    - [X] Precision, recall, and F1 score
 
-- [ ] Mixing dataset from different sequence types and segmented brain tumors to get a better result
+---- 11 week goal --- 
 
-- [ ] Using performance metrics to evaluate machine learning performance:
-    - [ ] Confusion matrix
-    - [ ] Precision, recall, and F1 score
+- [ ] getting the teest results and compare the to train results (overfit degree)
 
+- [ ] using std instaed of mean for evaluation
+
+- [ ] getting the fixed features in each subset for k-fold cross validation
+
+- [ ] reading about nested cross-validation
+
+- [ ] trying kaggle score (considering subission sample)
 
 
 Deliver thesis: Beginning of September - middle of July freeze code 
 
 
+
+---- Resample ---
+- [ ] Resample all images of Task 2 to common grid 1x1x1 mm3:
+    - [X]  Upload the resample python script (Liliana) 
+    - [ ]  Compare images from task 1 and task 2 with resampled version
 
 
 Preprocessing of features:
