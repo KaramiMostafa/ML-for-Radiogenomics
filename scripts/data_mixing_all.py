@@ -13,6 +13,7 @@ data_list= os.listdir(data_path)
 data_list = [file.replace('.csv', '') for file in data_list] # getting rid of extension 
 all_best_data = pd.DataFrame()
 
+
 for file in data_list:
     
     #%% reading and splitting the edataset into train and test 
@@ -27,7 +28,7 @@ for file in data_list:
     X_tr, X_ts, y_tr, y_ts = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
     # defining MSE variables
-    MSE_XGB, MSE_RF, MSE_SVM, MSE_LR, MSE_NN = [], [], [], [], []
+    MSE_RF, MSE_SVM, MSE_LR, MSE_NN = [], [], [], []
 
     # applying k-fold cross validation (K=5)
     kf = KFold(n_splits=5, shuffle=True)
@@ -61,7 +62,6 @@ for file in data_list:
         
         ## compute and print accuracy score
         # print('XGBoost model accuracy score: {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
-        MSE_XGB.append(format(accuracy_score(y_test, y_pred)))
 
         
         ## Feature importance with XGBoost
