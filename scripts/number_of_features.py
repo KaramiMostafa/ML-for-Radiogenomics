@@ -86,10 +86,6 @@ def top_features(df,i):
     # the list of most i-th top ranked features
     return im_feat
 
-df = pd.read_csv(r'D:\ICT\Thesis\Github\repo\data\all_best_data.csv')
-list_im_feat = top_features(df, 20)
-
-
 ''' Splitting the dataset and applying k-fold cross validation
     Feature selection by XGBoost method
     Fitting different model: SVM, LogisticRegression, Random forest, NN
@@ -113,7 +109,7 @@ data_list = [file.replace('.csv', '') for file in data_list]
 
     
 # reading and splitting the edataset into train and test 
-df = pd.read_csv(r'D:\ICT\Thesis\Github\repo\data\all_flair_data.csv')
+df = pd.read_csv(r'D:\ICT\Thesis\Github\repo\data\all_best_data.csv')
 
 # defining the target value and separate it 
 y = df['MGMT_value']
@@ -186,13 +182,13 @@ while i!=0:
         best_model_RF = result_RF.best_estimator_
         
         # make a prediction on the validation set and then check model performance by accuracy
-        y_pred_RF = best_model_RF.predict(X_train)
+        y_pred_RF = best_model_RF.predict(X_ts)
         
-        acc_RF.append(accuracy_score(y_train, y_pred_RF))
-        conf_RF.append(confusion_matrix(y_train, y_pred_RF))
-        f1_RF.append(f1_score(y_train, y_pred_RF))
-        prec_RF.append(precision_score(y_train, y_pred_RF))
-        rec_RF.append(recall_score(y_train, y_pred_RF))
+        acc_RF.append(accuracy_score(y_ts, y_pred_RF))
+        conf_RF.append(confusion_matrix(y_ts, y_pred_RF))
+        f1_RF.append(f1_score(y_ts, y_pred_RF))
+        prec_RF.append(precision_score(y_ts, y_pred_RF))
+        rec_RF.append(recall_score(y_ts, y_pred_RF))
         
         #%% Support Vector Machine:
         # build the SVM classifier and train it on the entire training data set
@@ -211,13 +207,13 @@ while i!=0:
         best_model_SVM = result_SVM.best_estimator_
         
         # get predictions on the test set and store the accuracy
-        y_pred_SVC = best_model_SVM.predict(X_train)
+        y_pred_SVC = best_model_SVM.predict(X_ts)
         
-        acc_SVM.append(accuracy_score(y_train, y_pred_SVC))
-        conf_SVM.append(confusion_matrix(y_train, y_pred_SVC))
-        f1_SVM.append(f1_score(y_train, y_pred_SVC))
-        prec_SVM.append(precision_score(y_train, y_pred_SVC))
-        rec_SVM.append(recall_score(y_train, y_pred_SVC))
+        acc_SVM.append(accuracy_score(y_ts, y_pred_SVC))
+        conf_SVM.append(confusion_matrix(y_ts, y_pred_SVC))
+        f1_SVM.append(f1_score(y_ts, y_pred_SVC))
+        prec_SVM.append(precision_score(y_ts, y_pred_SVC))
+        rec_SVM.append(recall_score(y_ts, y_pred_SVC))
     
         #%% Logistic Regession:
         # build the classifier and fit the model
@@ -236,13 +232,13 @@ while i!=0:
         best_model_LR = result_LR.best_estimator_
         
         # prediction and store accuracy
-        y_pred_LR = best_model_LR.predict(X_train)
+        y_pred_LR = best_model_LR.predict(X_ts)
         
-        acc_LR.append(accuracy_score(y_train, y_pred_LR))
-        conf_LR.append(confusion_matrix(y_train, y_pred_LR))
-        f1_LR.append(f1_score(y_train, y_pred_LR))
-        prec_LR.append(precision_score(y_train, y_pred_LR))
-        rec_LR.append(recall_score(y_train, y_pred_LR))
+        acc_LR.append(accuracy_score(y_ts, y_pred_LR))
+        conf_LR.append(confusion_matrix(y_ts, y_pred_LR))
+        f1_LR.append(f1_score(y_ts, y_pred_LR))
+        prec_LR.append(precision_score(y_ts, y_pred_LR))
+        rec_LR.append(recall_score(y_ts, y_pred_LR))
         
         #%% Neural Network:
         # create a MLPClassifier and fit the model
@@ -264,13 +260,13 @@ while i!=0:
         best_model_MPL = result_MPL.best_estimator_
         
         # prediction and store accuracy
-        y_pred_NN = best_model_MPL.predict(X_train)
+        y_pred_NN = best_model_MPL.predict(X_ts)
     
-        acc_NN.append(accuracy_score(y_train, y_pred_NN))
-        conf_NN.append(confusion_matrix(y_train, y_pred_NN))
-        f1_NN.append(f1_score(y_train, y_pred_NN))
-        prec_NN.append(precision_score(y_train, y_pred_NN))
-        rec_NN.append(recall_score(y_train, y_pred_NN))
+        acc_NN.append(accuracy_score(y_ts, y_pred_NN))
+        conf_NN.append(confusion_matrix(y_ts, y_pred_NN))
+        f1_NN.append(f1_score(y_ts, y_pred_NN))
+        prec_NN.append(precision_score(y_ts, y_pred_NN))
+        rec_NN.append(recall_score(y_ts, y_pred_NN))
         
     
     # storing result of evaluation metrics in dataframe for furthre anlysis
@@ -294,5 +290,5 @@ while i!=0:
     i-=1
 
 # save the data as a csv file
-mean_metrics.to_csv(r'D:\ICT\Thesis\Github\repo\results\results_by_mean\features_variation_flair_train.csv')  
-std_metrics.to_csv(r'D:\ICT\Thesis\Github\repo\results\results_by_std\features_variation_flair_train.csv')  
+mean_metrics.to_csv(r'D:\ICT\Thesis\Github\repo\results\results_by_mean\features_variation_all_test.csv')  
+std_metrics.to_csv(r'D:\ICT\Thesis\Github\repo\results\results_by_std\features_variation_all_test.csv')  
