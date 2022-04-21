@@ -106,10 +106,8 @@ data_path = r'D:\ICT\Thesis\Github\repo\data\separateed_data'
 data_list = os.listdir(data_path)
 data_list = [file.replace('.csv', '') for file in data_list]
 
-
-    
 # reading and splitting the edataset into train and test 
-df = pd.read_csv(r'D:\ICT\Thesis\Github\repo\data\all_best_data.csv')
+df = pd.read_csv(r'D:\ICT\Thesis\Github\repo\data\all_flair_data.csv')
 
 # defining the target value and separate it 
 y = df['MGMT_value']
@@ -133,8 +131,6 @@ X_ts = pd.DataFrame(X_ts, columns = X_tr.columns)
 
 # applying k-fold cross validation (K=5)
 cv_outer = KFold(n_splits=10, shuffle=True)
-
-
 
 # iteration over number of features i
 i = 20
@@ -290,5 +286,5 @@ while i!=0:
     i-=1
 
 # save the data as a csv file
-mean_metrics.to_csv(r'D:\ICT\Thesis\Github\repo\results\results_by_mean\features_variation_all_test.csv')  
-std_metrics.to_csv(r'D:\ICT\Thesis\Github\repo\results\results_by_std\features_variation_all_test.csv')  
+mean_metrics.to_csv(r'D:\ICT\Thesis\Github\repo\results\results_by_mean\features_variation_flair_test.csv')  
+std_metrics.to_csv(r'D:\ICT\Thesis\Github\repo\results\results_by_std\features_variation_flair_test.csv')  
