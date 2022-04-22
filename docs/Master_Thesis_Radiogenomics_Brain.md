@@ -156,12 +156,12 @@ https://www.codespeedy.com/feature-importance-in-machine-learning-using-xg-boost
 - [ ] trying kaggle score (considering subission sample)
 
 ---- 14 week goal --- 
-- [] visualize standard deviation and mean together
-- [] identify the best parameter in each iteration
-- [] replace the random forest classifier with the nearest neighbor classifier  
-- [] inner cross-validation --> k=5 instead k=3
-- [] check the recursive feature elimination (RFE) method
-- [] find another visualize method for the confusion matrix
+- [ ] visualize standard deviation and mean together
+- [ ] identify the best parameter in each iteration
+- [ ] replace the random forest classifier with the nearest neighbor classifier  
+- [ ] inner cross-validation --> k=5 instead k=3
+- [ ] check the recursive feature elimination (RFE) method
+- [ ] find another visualize method for the confusion matrix
 
 
 
