@@ -156,14 +156,17 @@ https://www.codespeedy.com/feature-importance-in-machine-learning-using-xg-boost
 - [ ] trying kaggle score (considering subission sample)
 
 ---- 14 week goal --- 
-- [ ] visualize standard deviation and mean together
-- [ ] identify the best parameter in each iteration
-- [ ] replace the random forest classifier with the nearest neighbor classifier  
-- [ ] inner cross-validation --> k=5 instead k=3
+- [X] visualize standard deviation and mean together
+- [X] identify the best parameter in each iteration
+- [X] replace the random forest classifier with the nearest neighbor classifier  
+- [X] inner cross-validation --> k=5 instead k=3
+- [X] find another visualize method for the confusion matrix
+
+---- 15 week goal --- 
 - [ ] check the recursive feature elimination (RFE) method
-- [ ] find another visualize method for the confusion matrix
-
-
+- [ ] try more parameters for GridSearchCV (SVM and LR)
+- [ ] get the fixed numbere of featurs based on the results
+- [ ] normalaized confusion matrix
 
 
 Deliver thesis: Beginning of September - middle of July freeze code 
