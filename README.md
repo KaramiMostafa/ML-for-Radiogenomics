@@ -12,3 +12,14 @@ T1-weighted post-contrast (T1Gd)
 T2-weighted (T2) 
 
 ### Methods 
+
+```blockdiag
+blockdiag {
+  blockdiag -> generates -> "block-diagrams";
+  blockdiag -> is -> "very easy!";
+
+  blockdiag [color = "greenyellow"];
+  "block-diagrams" [color = "pink"];
+  "very easy!" [color = "orange"];
+}
+```
