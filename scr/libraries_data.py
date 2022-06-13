@@ -9,8 +9,10 @@ from sklearn.model_selection import KFold
 from xgboost import XGBClassifier
 from sklearn.feature_selection import VarianceThreshold
 import matplotlib.pyplot as plt
+from sklearn.model_selection import StratifiedKFold
 import seaborn as sns
 from sklearn.feature_selection import RFE
+from sklearn.feature_selection import RFECV
 
 """ separated_extracted_data_list: list of separated csv file names
     separated_extracted_data_path: path of separated csv file names
@@ -192,104 +194,179 @@ class DataProcess:
         # displaying heatmap
         plt.show()
     
-    def top_feat_RFE(self, df, number_feat, target_var):
-        '''
-            This function finds top features using the Recursive Feature Elimination
-            approach and returns a list of str.
-            
-            Parameter
-            ---------
-            df: dataframe as an input
-            number_feat: number of features needed to be ranked (int)
-            target_var: target variable (str)
-            
-            Return 
-            ------
-            best_feat: list of top features' name
-            
-        '''
-    
-        # defining the target value and separate it 
-        y = df[target_var]
-        X = df.drop([target_var], axis = 1)
-    
-        # # define RFECV
-        # rfecv = RFECV(estimator=DecisionTreeClassifier(),
-        #     cv=StratifiedKFold(5),
-        #     scoring="accuracy",
-        #     min_features_to_select=number_feat,
-        # )
-    
-        i = number_feat
-        best_feat = [] # list of faetures' name
-        while i!=0:
-        
-            rfe = RFE(estimator=DecisionTreeClassifier(), step=1, n_features_to_select=1)
-            
-            # fit RFE
-            rfe.fit(X, y)
-            
-            top_feat_name = X.iloc[:, int(rfe.get_support(1))].name
-            # append the top feature  and remove it for next iteration
-            best_feat.append(top_feat_name)
-            X.drop(top_feat_name, axis = 1)
-            
-            i-=1
-        
-        return best_feat
+    def top_features_XGB(self, df, number_feat, target_var):
 
-    
-    
+        """
+        This function finds common top i features (by XGBoost classifier) and
+        returns them as a list of strings that are the features' names.
 
-    def top_features_XGB(self, df, number_feat):
-        
-        ''' 
-            <<to_features_XGB>> finds common top i features (by XGBoost classifier) and 
-            return them as a dictionary of string which are the name of the features. 
-            df: dataframe as an input
-            i: number of features needed to be ranked
-            
-            return: the list of i top ranked features
-        '''
-        
+
+        Parameters
+        ----------
+            df: DataFrame
+                dataframe as an input
+            number_feat: int
+                number of features needed to be ranked
+            target_var: str
+                target variable
+
+        Returns
+        -------
+            im_feat: list
+                list of i top-ranked features
+        """
+
         # defining the target value and separate it
-        y = df['MGMT_value']
-        X = df.drop(['MGMT_value','Unnamed: 0'], axis = 1)
-        
+        y = df[target_var]
+        X = df.drop([target_var], axis=1)
+
         kf = KFold(n_splits=5, shuffle=True)
-        for train_index , test_index in kf.split(X):
-            X_train , X_test = X.iloc[train_index,:], X.iloc[test_index,:]
-            y_train , y_test = y.iloc[train_index], y.iloc[test_index]
-            
+        for train_index, test_index in kf.split(X):
+            X_train, X_test = X.iloc[train_index, :], X.iloc[test_index, :]
+            y_train, y_test = y.iloc[train_index], y.iloc[test_index]
+
             # declare parameters
             params = {
-                        'objective':'binary:logistic',
-                        'max_depth': 4,
-                        'alpha': 10,
-                        'learning_rate': 1.0,
-                        'n_estimators':100
-                    }
-            
-            # instantiate the classifier 
+                "objective": "binary:logistic",
+                "max_depth": 4,
+                "alpha": 10,
+                "learning_rate": 1.0,
+                "n_estimators": 100,
+            }
+
+            # instantiate the classifier
             xgb_clf = XGBClassifier(**params)
-            
+
             # fit the classifier to the training data
             xgb_clf.fit(X_train, y_train)
-            
+
             # list of features name
             feat_names = list(X_train.columns)
-            
-            feats = {} # a dict to hold feature_name: feature_importance
+
+            feats = {}  # a dict to hold feature_name: feature_importance
             for feature, importance in zip(feat_names, xgb_clf.feature_importances_):
-                feats[feature] = importance #add the name/value pair 
+                feats[feature] = importance  # add the name/value pair
             # appending the dictionary of features with their scores by each k subset
-            feats.update({x:y for x,y in feats.items() if y!=0})
-            
+            feats.update({x: y for x, y in feats.items() if y != 0})
+
         # sort the features based on their importance
-        im_feat = sorted(feats.items(), key=lambda feats: feats[1], reverse=True)[:number_feat]
+        im_feat = sorted(feats.items(), key=lambda feats: feats[1], reverse=True)[
+            :number_feat
+        ]
         # im_feat.sort(key = lambda x: x[1], reverse=True)
         im_feat = [item for sublist in im_feat for item in sublist]
         im_feat = [elm for elm in im_feat if isinstance(elm, str)]
-        
+
         # the list of most i-th top ranked features
         return im_feat
+
+    def top_features_RFE(self, df, number_feat, target_var):
+        """
+        This function finds top features using the Recursive Feature Elimination
+        approach and returns a list of str.
+
+        Parameter
+        ---------
+        df: DataFrame
+            dataframe as an input
+        number_feat: int
+            number of features needed to be ranked
+        target_var: str
+            target variable
+
+        Return
+        ------
+        best_feat: list
+            list of top features' name
+
+        """
+
+        # defining the target value and separate it
+        y = df[target_var]
+        X = df.drop([target_var], axis=1)
+
+
+        best_feat = []  # list of faetures' name
+
+        rfe = RFE(
+            estimator=DecisionTreeClassifier(), step=1, n_features_to_select=number_feat
+        )
+
+        # fit RFE
+        rfe.fit(X, y)
+
+        # get the score for the top selected features
+        feature_importance = rfe.estimator_.feature_importances_
+        # sort the reanking out with its index number (first one is the best feature)
+        feature_importance_sorted = sorted(enumerate(feature_importance),
+                                           key=lambda x: x[1], reverse=True)
+        # extract the index of ranking among the top features
+        top_n_idx = [idx for idx, _ in feature_importance_sorted[:]]
+        
+        # based on index get the name of the features
+        top_n_feat_idx = [rfe.get_support(1)[i] for i in top_n_idx]
+        
+        for item in top_n_feat_idx:
+            best_feat.append(X.iloc[:, int(item)].name)
+        
+        return best_feat[
+            :number_feat
+        ]
+
+    def top_features_RFECV(self, df, number_feat, target_var):
+        """
+        This function finds top features using the Recursive Feature Elimination
+        in a cross-validation loop to find the optimal number of features and returns 
+        them as a list of str.
+
+        Parameter
+        ---------
+        df: DataFrame
+            dataframe as an input
+        number_feat: int
+            number of features needed to be ranked
+        target_var: str
+            target variable
+
+        Return
+        ------
+        best_feat: list
+            list of top features' name
+
+        """
+
+        # defining the target value and separate it
+        y = df[target_var]
+        X = df.drop([target_var], axis=1)
+
+
+
+        best_feat = []  # list of faetures' name
+
+
+        # define RFECV
+        rfecv = RFECV(estimator=DecisionTreeClassifier(),
+            cv=StratifiedKFold(5),
+            scoring="accuracy",
+            min_features_to_select=number_feat,
+        )
+
+        # fit RFECV
+        rfecv.fit(X, y)
+        
+        # get the score for the top selected features
+        feature_importance = rfecv.estimator_.feature_importances_
+        # sort the reanking out with its index number (first one is the best feature)
+        feature_importance_sorted = sorted(enumerate(feature_importance),
+                                           key=lambda x: x[1], reverse=True)
+        # extract the index of ranking among the top features
+        top_n_idx = [idx for idx, _ in feature_importance_sorted[:]]
+        
+        # based on index get the name of the features
+        top_n_feat_idx = [rfecv.get_support(1)[i] for i in top_n_idx]
+        for item in top_n_feat_idx:
+            best_feat.append(X.iloc[:, int(item)].name)
+
+        return best_feat[
+            :number_feat
+        ]
